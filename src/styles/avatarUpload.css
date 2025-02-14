@@ -1,0 +1,11 @@
+
+.image-div.selected .overlay{
+    opacity: 0;
+}
+.image-div .overlay:hover ~ img{
+    filter: brightness(0.5);
+}
+.image-div.selected:hover .overlay{
+    opacity: 1;
+}
+

@@ -1,0 +1,103 @@
+import { useState, useRef } from "react";
+
+import '../styles/avatarUpload.css'
+
+
+function AvatarUpload() {
+    const [previewUrl, setPreviewUrl] = useState(null);
+    const fileInputRef = useRef(null);
+
+    // Handle drag over (prevents browser from opening the file)
+    const handleDragOver = (event) => {
+        event.preventDefault();
+    };
+
+    // Handle file drop
+    const handleDrop = (event) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            // Create a local preview URL
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewUrl(imageUrl);
+        }
+    };
+
+    // Handle click to trigger file dialog
+    const handleClick = () => {
+        fileInputRef.current.click();
+    };
+
+    // Handle file selection from the file dialog
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewUrl(imageUrl);
+        }
+    };
+
+    return (
+
+        <>
+
+            <div className="p-6 mb-8 b-dark-green bg-[#052228] rounded-3xl">
+
+                <p className="underline">Upload Profile Photo</p>
+
+                <div className="relative mt-3">
+
+                    <div
+                        style={{
+                            width: "240px",
+                            height: "240px",
+                            border: "4px solid rgba(36, 160, 181, 0.5)",
+                        }}
+                        className={`${previewUrl ? "selected" : ""} image-div z-20 overflow-hidden relative flex justify-center items-center cursor-pointer mx-auto rounded-[32px] h-[240px] w-full max-w-[240px]`}
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                        onClick={handleClick}
+                    >
+
+                        <div className="overlay p-3 text-center w-44 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+
+                            <img src="upload_icon.svg" alt="upload icon" className="mx-auto inline-block mb-6" />
+
+                            <p className="underline font-light">Drag & Drop or Click to Upload</p>
+                        </div>
+                        
+                        {/* If we have a preview, show it as an <img>. Otherwise, show a placeholder text */}
+                        {previewUrl && (
+                            <img
+                                src={previewUrl}
+                                alt="Uploaded Preview"
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                className=" duration-200 hover:brightness-50"
+                            />
+                        )}
+
+                        {/* Hidden file input for click-based uploads */}
+                        <input
+                            type="file"
+                            name="avatar"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            style={{ display: "none" }}
+                            accept="image/*"
+                        />
+                    </div>
+
+                    <div className="z-10 bg-[#00000033] absolute left-0 top-[20px] bottom-[20px] right-0 "></div>
+
+                </div>
+
+            </div>
+        </>
+
+
+
+
+    )
+}
+
+export default AvatarUpload;

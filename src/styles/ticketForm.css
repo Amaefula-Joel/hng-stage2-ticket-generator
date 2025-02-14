@@ -1,0 +1,51 @@
+.ticket-form-container {
+    max-width: 700px;
+    background-color: #041E23;
+    border-radius: 40px;
+    border: 1px solid #0E464F;
+}
+
+.ticket-form-container .heading {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.progress-bar {
+    background-color: #0E464F;
+}
+
+.progress-bar > div {
+    background-color: #24A0B5;
+    height: 6px;
+}
+
+.form-body{
+    /* margin-top: 32px; */
+    background: #08252B;
+    border: 1px solid #0E464F;
+    border-radius: 32px;
+}
+
+.step1-header{
+background: radial-gradient(103.64% 57.39% at 14.02% 32.06%, rgba(36, 160, 181, 0.2) 0%, rgba(36, 160, 181, 0) 100%), rgba(10, 12, 17, 0.1);
+
+}
+
+.form-step{
+    display: none;
+}
+
+.form-step.active{
+    display: block;
+}
+
+.radio-input input:checked ~ label{
+    background-color: #12464E;
+}
+
+@media screen and (max-width: 768px) {
+    .ticket-form-container {
+        border-radius: 32px;
+    }
+
+}

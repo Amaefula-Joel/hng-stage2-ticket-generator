@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-darkest-green: #041E23;
+  --color-dark-green: #08252B;
+  --color-light-green: #12464E;
+  --color-lightest-green: #24A0B5;
+  /* --color-b-dark-green: #07373F;
+  --color-b-light-green: #197686; */
+}
+
+h1, h2, h3, h4, h5, h6, button, a {
+  font-family: 'Jeju Myeongjo', serif;
+}
+
+.b-dark-green {
+  border: 2px solid #07373F;
+}
+
+.b-light-green {
+  border: 2px solid #197686;
+}
+body, html{
+  font-family: "Roboto", sans-serif;
+}
+
+.main-title {
+  font-family: "Road Rage", serif;
+
+}
+
+body {
+  background: radial-gradient(52.52% 32.71% at 50% 97.66%, rgba(36, 160, 181, 0.2) 0%, rgba(36, 160, 181, 0) 100%), #02191D;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
