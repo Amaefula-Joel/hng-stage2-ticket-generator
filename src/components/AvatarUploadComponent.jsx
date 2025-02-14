@@ -1,11 +1,22 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import localforage from "localforage";
+import { useFileContext } from "../FileContext";
 
 import '../styles/avatarUpload.css'
 
-
-function AvatarUpload() {
+function AvatarUpload({ setValue }) {
     const [previewUrl, setPreviewUrl] = useState(null);
     const fileInputRef = useRef(null);
+    const { setAvatarFile } = useFileContext();
+
+    useEffect(() => {
+        localforage.getItem("avatar").then((savedAvatar) => {
+            if (savedAvatar) {
+                setPreviewUrl(savedAvatar);
+                setValue("avatar", savedAvatar);
+            }
+        });
+    }, [setValue]);
 
     // Handle drag over (prevents browser from opening the file)
     const handleDragOver = (event) => {
@@ -20,6 +31,9 @@ function AvatarUpload() {
             // Create a local preview URL
             const imageUrl = URL.createObjectURL(file);
             setPreviewUrl(imageUrl);
+            setValue("avatar", imageUrl);
+            setAvatarFile(file);
+            localforage.setItem("avatar", imageUrl);
         }
     };
 
@@ -34,19 +48,18 @@ function AvatarUpload() {
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setPreviewUrl(imageUrl);
+            setValue("avatar", imageUrl);
+            setAvatarFile(file);
+            localforage.setItem("avatar", imageUrl);
         }
     };
 
     return (
-
         <>
-
             <div className="p-6 mb-8 b-dark-green bg-[#052228] rounded-3xl">
-
                 <p className="underline">Upload Profile Photo</p>
 
                 <div className="relative mt-3">
-
                     <div
                         style={{
                             width: "240px",
@@ -58,15 +71,11 @@ function AvatarUpload() {
                         onDrop={handleDrop}
                         onClick={handleClick}
                     >
-
                         <div className="overlay p-3 text-center w-44 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-
                             <img src="upload_icon.svg" alt="upload icon" className="mx-auto inline-block mb-6" />
-
                             <p className="underline font-light">Drag & Drop or Click to Upload</p>
                         </div>
-                        
-                        {/* If we have a preview, show it as an <img>. Otherwise, show a placeholder text */}
+
                         {previewUrl && (
                             <img
                                 src={previewUrl}
@@ -76,7 +85,6 @@ function AvatarUpload() {
                             />
                         )}
 
-                        {/* Hidden file input for click-based uploads */}
                         <input
                             type="file"
                             name="avatar"
@@ -88,15 +96,9 @@ function AvatarUpload() {
                     </div>
 
                     <div className="z-10 bg-[#00000033] absolute left-0 top-[20px] bottom-[20px] right-0 "></div>
-
                 </div>
-
             </div>
         </>
-
-
-
-
     )
 }
 
