@@ -12,8 +12,14 @@ function AvatarUpload({ setValue }) {
     useEffect(() => {
         localforage.getItem("avatar").then((savedAvatar) => {
             if (savedAvatar) {
-                setPreviewUrl(savedAvatar);
-                setValue("avatar", savedAvatar);
+            setPreviewUrl(savedAvatar);
+            setValue("avatar", savedAvatar);
+            }
+        });
+
+        localforage.getItem("file").then((savedFile) => {
+            if (savedFile) {
+            setAvatarFile(savedFile);
             }
         });
     }, [setValue]);
@@ -34,6 +40,7 @@ function AvatarUpload({ setValue }) {
             setValue("avatar", imageUrl);
             setAvatarFile(file);
             localforage.setItem("avatar", imageUrl);
+            localforage.setItem("file", file);
         }
     };
 

@@ -1,4 +1,6 @@
 import AvatarUpload from './AvatarUploadComponent';
+import TicketDisplay from './TicketDisplayComponent';
+import SuccessMessage from './SuccessMessage';
 import '../styles/ticketForm.css';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,8 +13,12 @@ import localforage from "localforage";
 
 
 function TicketForm() {
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(2);
     const [uploading, setUploading] = useState(false);
+    const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [cloudImage, setCloudImage] = useState(null);
+
+
     const { avatarFile } = useFileContext();
 
 
@@ -78,61 +84,46 @@ function TicketForm() {
             }
             return alert("Complete all required fields before proceeding.");
         }
-        setPage((prev) => prev + 1);
+        if (page === 1 && Object.keys(errors).length === 0) {
+            uploadToCloudinary(avatarFile)
+        }
+        if (page === 0) {
+            setPage((prev) => prev + 1);
+        }
         console.log(avatarFile)
 
     }
 
 
     const clearLocalForageData = async () => {
+        setUploadSuccess(false);
         reset();
+
         await localforage.removeItem("ticketForm");
         await localforage.removeItem("avatar");
+        await localforage.removeItem("file");
         window.location.reload();
     }
 
-    // const uploadImageToCloudinary = async (file) => {
-    //     const formData = new FormData();
-    //     formData.append('file', file);
-    //     formData.append('upload_preset', 'ticketGeneratorPreset'); // Replace with your Cloudinary upload preset
-
-    //     try {
-    //         const response = await fetch('https://api.cloudinary.com/v1_1/dkx37dt3i/image/upload', {
-    //             method: 'POST',
-    //             body: formData
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Image upload failed');
-    //         }
-
-    //         const data = await response.json();
-    //         return data.secure_url; // Return the secure URL of the uploaded image
-    //     } catch (error) {
-    //         console.error('Error uploading image:', error);
-    //         return null;
-    //     }
-    // };
-
     const uploadToCloudinary = async (file) => {
         if (!file) return alert("No image selected!");
-    
+
         setUploading(true);
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "your_upload_preset");
-    
+        formData.append("upload_preset", "ticketGeneratorPreset");
+
         try {
-            const response = await fetch("https://api.cloudinary.com/v1_1/your_cloud_name/image/upload", {
+            const response = await fetch("https://api.cloudinary.com/v1_1/dkx37dt3i/image/upload", {
                 method: "POST",
                 body: formData
             });
-    
+
             const data = await response.json();
-            setPreviewUrl(data.secure_url);
-            setValue("avatar", data.secure_url);
-            await localforage.setItem("avatar", data.secure_url);
-            alert("Upload successful!");
+            setCloudImage(data.secure_url);
+            setUploadSuccess(true);
+
+
         } catch (error) {
             console.error("Upload failed", error);
             alert("Upload failed!");
@@ -140,7 +131,7 @@ function TicketForm() {
             setUploading(false);
         }
     };
-    
+
 
     return (
 
@@ -165,6 +156,28 @@ function TicketForm() {
 
 
                         <form>
+                            {uploading && (
+                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                                </div>
+                            )}
+                            {uploadSuccess && (
+                                <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
+                                    <SuccessMessage />
+                                </div>
+                            )}
+
+                            {uploading && (
+                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                                </div>
+                            )}
+                            {uploadSuccess && (
+                                <div className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50">
+                                    <SuccessMessage />
+                                </div>
+                            )}
+
                             {/* step 1 starts */}
                             <div className={'form-step' + (page === 0 ? ' active' : '')}>
 
@@ -251,7 +264,7 @@ function TicketForm() {
                             {/* step 2 starts */}
                             <div className={'form-step' + (page === 1 ? ' active' : '')}>
 
-                                <AvatarUpload setValue={setValue}/>
+                                <AvatarUpload setValue={setValue} />
 
 
                                 {/* line */}
@@ -289,7 +302,12 @@ function TicketForm() {
 
                         {/* step 3 starts */}
                         <div className={'form-step' + (page === 2 ? ' active' : '')}>
-                            <h3>Form Group three</h3>
+
+                            <h3 className='text-center mb-3 text-2xl'>Your Ticket is Booked!</h3>
+
+                            <p className='text-center mb-16 text-sm'>Check your email for a copy or you can download</p>
+
+                            <TicketDisplay />
                         </div>
                         {/* step 3 ends */}
 
