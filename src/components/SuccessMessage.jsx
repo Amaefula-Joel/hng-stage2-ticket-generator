@@ -1,9 +1,18 @@
-import {useState } from "react";
+import { useState, useEffect } from "react";
 
 const SuccessMessage = () => {
-    const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
 
-    if (!visible) return null;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!visible) return null;
+
   return (
     <div className="flex flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50">
       <div className="succsess-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-[#232531] px-[10px]">
@@ -18,7 +27,7 @@ const SuccessMessage = () => {
             <p className="text-gray-500">Here's your ticket</p>
           </div>
         </div>
-        <button onClick={() => {setVisible(false)} } type="button" className="text-gray-600 hover:bg-white/5 p-1 rounded-md transition-colors ease-linear">
+        <button onClick={() => { setVisible(false) }} type="button" className="text-gray-600 hover:bg-white/5 p-1 rounded-md transition-colors ease-linear">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>

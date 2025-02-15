@@ -1,7 +1,7 @@
 import '../styles/navbar.css';
 function Navbar() {
     return (
-        <nav className="navbar flex justify-between items-center px-6 py-2">
+        <nav className="navbar flex justify-between items-center sm:px-6 px-3 py-2">
             <a className="navbar-brand" href="/">
                 <img src="navbar-logo.png" className="h-7 md:h-10" alt="logo"/>
             </a>

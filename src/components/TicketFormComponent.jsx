@@ -216,7 +216,7 @@ function TicketForm() {
                                             </label>
                                         </div>
                                         <div className='radio-input flex-1'>
-                                            <input type="radio" name="ticket_type" value="vip 150" id="vip-ticket" className="hidden" {...register("ticket_type")} />
+                                            <input type="radio" name="ticket_type" value="vip" id="vip-ticket" className="hidden" {...register("ticket_type")} />
                                             <label htmlFor="vip-ticket" className='cursor-pointer duration-200 b-light-green hover:bg-[#2C545B] p-3 rounded-xl block w-full'>
 
                                                 <p className='mb-2 text-2xl'><strong>$150</strong></p>
@@ -226,7 +226,7 @@ function TicketForm() {
                                             </label>
                                         </div>
                                         <div className='radio-input flex-1'>
-                                            <input type="radio" name="ticket_type" value="vvip 150" id="vvip-ticket" className="hidden" {...register("ticket_type")} />
+                                            <input type="radio" name="ticket_type" value="vvip" id="vvip-ticket" className="hidden" {...register("ticket_type")} />
                                             <label htmlFor="vvip-ticket" className='cursor-pointer duration-200 b-light-green hover:bg-[#2C545B] p-3 rounded-xl block w-full'>
 
                                                 <p className='mb-2 text-2xl'><strong>$150</strong></p>

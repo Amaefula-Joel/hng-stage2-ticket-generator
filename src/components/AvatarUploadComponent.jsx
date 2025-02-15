@@ -69,11 +69,9 @@ function AvatarUpload({ setValue }) {
                 <div className="relative mt-3">
                     <div
                         style={{
-                            width: "240px",
-                            height: "240px",
                             border: "4px solid rgba(36, 160, 181, 0.5)",
                         }}
-                        className={`${previewUrl ? "selected" : ""} image-div z-20 overflow-hidden relative flex justify-center items-center cursor-pointer mx-auto rounded-[32px] h-[240px] w-full max-w-[240px]`}
+                        className={`${previewUrl ? "selected" : ""} image-div z-20 overflow-hidden relative flex justify-center items-center cursor-pointer mx-auto rounded-[32px] sm:h-[240px] h-[200px] w-full max-w-[240px]`}
                         onDragOver={handleDragOver}
                         onDrop={handleDrop}
                         onClick={handleClick}
