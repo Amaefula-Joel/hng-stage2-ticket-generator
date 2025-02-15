@@ -13,7 +13,7 @@ import localforage from "localforage";
 
 
 function TicketForm() {
-    const [page, setPage] = useState(2);
+    const [page, setPage] = useState(0);
     const [uploading, setUploading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [cloudImage, setCloudImage] = useState(null);
@@ -26,7 +26,7 @@ function TicketForm() {
 
     const schema = yup.object().shape({
         ticket_type: yup.string().required('Please select a ticket type.'),
-        number_of_ticket: yup.string().required('Please select the number of tickets.'),
+        ticket_for: yup.string().required('Please select the number of tickets.'),
         name: yup.string().required('Name is required.'),
         avatar: yup.string().required('Please upload an avatar.'),
         email_address: yup.string().email('Invalid email').required('Email is required.'),
@@ -46,7 +46,7 @@ function TicketForm() {
         mode: "onChange",
         defaultValues: {
             ticket_type: '',
-            number_of_ticket: '1',
+            ticket_for: '1',
             name: '',
             avatar: '',
             email_address: '',
@@ -75,7 +75,7 @@ function TicketForm() {
     }, [formValues]);
 
     const onNext = () => {
-        if (page === 0 && (!getValues("ticket_type") || !getValues("number_of_ticket"))) return alert("Fill the required fields.");
+        if (page === 0 && (!getValues("ticket_type") || !getValues("ticket_for"))) return alert("Fill the required fields.");
         if (page === 1 && (!getValues("name") || !getValues("email_address") || !getValues("avatar"))) {
 
             // if there are errors in the form
@@ -91,6 +91,7 @@ function TicketForm() {
             setPage((prev) => prev + 1);
         }
         console.log(avatarFile)
+        console.log(watch())
 
     }
 
@@ -122,6 +123,8 @@ function TicketForm() {
             const data = await response.json();
             setCloudImage(data.secure_url);
             setUploadSuccess(true);
+
+            setPage(2);
 
 
         } catch (error) {
@@ -245,13 +248,13 @@ function TicketForm() {
                                 <div className="mb-8">
                                     <p className='mt-7 text-sm mb-2'> Number of Tickets</p>
 
-                                    <select className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name="number_of_ticket" {...register("number_of_ticket")}>
+                                    <select className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name="ticket_for" {...register("ticket_for")}>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                     </select>
 
-                                    <p className="text-red-400 text-sm mt-3">{errors.number_of_ticket?.message}</p>
+                                    <p className="text-red-400 text-sm mt-3">{errors.ticket_for?.message}</p>
 
                                 </div>
 
@@ -307,7 +310,7 @@ function TicketForm() {
 
                             <p className='text-center mb-16 text-sm'>Check your email for a copy or you can download</p>
 
-                            <TicketDisplay />
+                            <TicketDisplay img={cloudImage} formData={watch()} />
                         </div>
                         {/* step 3 ends */}
 

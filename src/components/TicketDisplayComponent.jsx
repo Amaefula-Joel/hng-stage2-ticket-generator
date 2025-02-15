@@ -1,4 +1,4 @@
-function TicketDisplay() {
+function TicketDisplay({formData, img}) {
     return (
         <div className="mx-auto max-w-[260px] p-4 b-light-green rounded-xl">
             <h1 className='main-title   text-[34px] text-center '>Techember Fest ”25</h1>
@@ -9,31 +9,31 @@ function TicketDisplay() {
             </div>
 
             <div>
-                <img src="" alt="kvj"  className="mx-auto rounded-lg" style={{ width: "140px",
+                <img src={img} alt="kvj"  className="mx-auto rounded-lg" style={{ width: "140px",
                             height: "140px",
                             border: "4px solid rgba(36, 160, 181, 0.5)", objectFit: "cover" }}/>
             </div>
 
             <div className="grid grid-cols-2 p-1 bg-[#08343C] mt-5 rounded-md">
                     <div className=" p-1">
-                        <p className="text-gray-400 text-[10px]">Name</p>
-                        <p className="text-gray-200 text-sm">Name</p>
+                        <p className="text-gray-400 text-[10px]">Enter your name</p>
+                        <p className="text-gray-200 text-sm">{formData.name}</p>
                     </div>
                     <div className=" p-1">
-                        <p className="text-gray-400 text-[10px]">Name</p>
-                        <p className="text-gray-200 text-sm">Name</p>
+                        <p className="text-gray-400 text-[10px]">Enter your email *</p>
+                        <p className="text-gray-200 text-sm">{formData.email_address}</p>
                     </div>
                     <div className=" p-1">
-                        <p className="text-gray-400 text-[10px]">Name</p>
-                        <p className="text-gray-200 text-sm">Name</p>
+                        <p className="text-gray-400 text-[10px]">Ticket Type:</p>
+                        <p className="text-gray-200 text-sm">{formData.ticket_type}</p>
                     </div>
                     <div className=" p-1">
-                        <p className="text-gray-400 text-[10px]">Name</p>
-                        <p className="text-gray-200 text-sm">Name</p>
+                        <p className="text-gray-400 text-[10px]">Ticket for :</p>
+                        <p className="text-gray-200 text-sm">{formData.ticket_for}</p>
                     </div>
                     <div className="col-span-2 p-1">
-                        <p className="text-green-700">Name</p>
-                        <p className="text-gray-200 text-sm">Name</p>
+                    <p className="text-gray-400 text-[10px]">Special request?</p>
+                        <p className="text-gray-200 text-sm">{formData.request}</p>
                     </div>
             </div>
         </div>
