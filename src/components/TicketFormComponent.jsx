@@ -90,8 +90,6 @@ function TicketForm() {
         if (page === 0) {
             setPage((prev) => prev + 1);
         }
-        console.log(avatarFile)
-        console.log(watch())
 
     }
 
@@ -206,7 +204,7 @@ function TicketForm() {
 
                                     <div className="bg-[#052228] p-4 b-dark-green rounded-xl flex flex-col sm:flex-row gap-4">
                                         <div className='radio-input flex-1'>
-                                            <input type="radio" name="ticket_type" value="free" id="regular-ticket" className="hidden" {...register("ticket_type")} />
+                                            <input type="radio" tabIndex="1" name="ticket_type" value="free" id="regular-ticket" className="hidden" {...register("ticket_type")} />
                                             <label htmlFor="regular-ticket" className='cursor-pointer duration-200 b-light-green hover:bg-[#2C545B] p-3 rounded-xl block w-full'>
 
                                                 <p className='mb-2 text-2xl'><strong>Free</strong></p>
@@ -248,7 +246,7 @@ function TicketForm() {
                                 <div className="mb-8">
                                     <p className='mt-7 text-sm mb-2'> Number of Tickets</p>
 
-                                    <select className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name="ticket_for" {...register("ticket_for")}>
+                                    <select tabIndex="2" className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name="ticket_for" {...register("ticket_for")}>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -276,7 +274,7 @@ function TicketForm() {
                                 <div className="mb-8">
                                     <p className='mt-7 text-sm mb-2'>Enter Your name</p>
 
-                                    <input type="text" className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name='name' {...register("name")} />
+                                    <input type="text" tabIndex="5" className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name='name' {...register("name")} />
 
                                     <p className="text-red-400 text-sm mt-3">{errors.name?.message}</p>
                                 </div>
@@ -284,7 +282,7 @@ function TicketForm() {
                                 <div className="mb-8">
                                     <p className='mt-7 text-sm mb-2'>Enter your email *</p>
 
-                                    <input type="email" className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name='email_address' {...register("email_address")} />
+                                    <input type="email" tabIndex="6" className="bg-[#052228] p-3 b-dark-green rounded-xl w-full" name='email_address' {...register("email_address")} />
 
                                     <p className="text-red-400 text-sm mt-3">{errors.email_address?.message}</p>
                                 </div>
@@ -292,7 +290,7 @@ function TicketForm() {
                                 <div className="mb-8">
                                     <p className='mt-7 text-sm mb-2'>Special request?</p>
 
-                                    <textarea className='bg-[#052228] p-3 b-dark-green rounded-xl w-full min-h-[127px]' name="request" {...register("request")} ></textarea>
+                                    <textarea tabIndex="7" className='bg-[#052228] p-3 b-dark-green rounded-xl w-full min-h-[127px]' name="request" {...register("request")} ></textarea>
 
                                     <p className="text-red-400 text-sm mt-3">{errors.request?.message}</p>
                                 </div>
@@ -322,7 +320,7 @@ function TicketForm() {
                                     if (page > 0) {
                                         setPage(page => page - 1);
                                     }
-                                }} className='cursor-pointer sm:px-6 px-4 py-3 text-sm sm:text-md b-light-green duration-200 hover:bg-lightest-green rounded-md font-semi-bold flex-1 order-2 sm:order-1'>Back</button>
+                                }} tabIndex="3" className='cursor-pointer sm:px-6 px-4 py-3 text-sm sm:text-md b-light-green duration-200 hover:bg-lightest-green rounded-md font-semi-bold flex-1 order-2 sm:order-1'>Back</button>
                             )}
 
                             {/* cancel or back to beginning button */}
@@ -339,7 +337,7 @@ function TicketForm() {
                             )}
 
                             {/* next button */}
-                            <button onClick={onNext} className='cursor-pointer sm:px-6 px-4 py-3 text-sm sm:text-md b-light-green duration-200 bg-lightest-green rounded-md font-semi-bold flex-1 order-1 sm:order-2'>
+                            <button tabIndex="8" onClick={onNext} className='cursor-pointer sm:px-6 px-4 py-3 text-sm sm:text-md b-light-green duration-200 bg-lightest-green rounded-md font-semi-bold flex-1 order-1 sm:order-2'>
                                 <span>
                                     {page === 0 ? 'Next' : 'Get My Free Ticket'}
                                 </span>

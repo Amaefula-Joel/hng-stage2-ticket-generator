@@ -93,6 +93,7 @@ function AvatarUpload({ setValue }) {
                         <input
                             type="file"
                             name="avatar"
+                            tabIndex="4"
                             ref={fileInputRef}
                             onChange={handleFileChange}
                             style={{ display: "none" }}
